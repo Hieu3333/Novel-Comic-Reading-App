@@ -11,6 +11,7 @@ import javax.swing.text.html.Option;
 import java.util.Optional;
 import com.example.novel.novel.Novel;
 import com.example.novel.novel.NovelService;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -41,6 +42,14 @@ public class UserService {
             User user = userOptional.get();
             return user.getPassword().equals(password);
         }
+    }
+
+    public List<Novel> getFavNovel(String username){
+        Optional<User> userOptional = singleUser(username);
+        User user = userOptional.get();
+        List<Novel> fav = user.getFavoriteNovels();
+        return fav;
+
     }
 
 

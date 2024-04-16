@@ -21,16 +21,31 @@ public class Novel {
     private String title;
     private String author;
     private String genre;
+
+
+
     private int releaseYear;
-    private int rating;
+
+
+
+    private float rating;
 
     private String imgURL;
 
     private String summary;
 
-    private List<String> comment;
+    private String content;
 
-    public Novel(String title, String author, String genre, int releaseYear, String imgUrl, String summary) {
+
+
+    private List<String> comment;
+    private int numberOfRatings;
+
+    private int numberOfComments;
+
+    private Boolean VIP;
+
+    public Novel(String title, String author, String genre, int releaseYear, String imgUrl, String summary, String content) {
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -38,5 +53,28 @@ public class Novel {
         this.rating = 0;
         this.imgURL = imgUrl;
         this.summary = summary;
+        this.content = content;
+        this.VIP = false;
+        this.numberOfRatings=0;
+        this.numberOfComments=0;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+    public float getRating() {
+        return rating;
+    }
+
+    public void setNumberOfRatings(int numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public int getNumberOfComments() {
+        return numberOfComments;
+    }
+
+    public int getNumberOfRatings() {
+        return numberOfRatings;
     }
 }

@@ -36,4 +36,5 @@ public class User {
     public String getPassword() {
         return password;
     }
+    public List<Novel> getFavoriteNovels() { return favoriteNovels;}
 }

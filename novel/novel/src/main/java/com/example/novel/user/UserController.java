@@ -1,5 +1,6 @@
 package com.example.novel.user;
 
+import com.example.novel.novel.Novel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -41,6 +43,10 @@ public class UserController {
         }
     }
 
+    @GetMapping("/{username}/favorite")
+    public ResponseEntity<List<Novel>> getFavNovels(@PathVariable String username){
+        return new ResponseEntity<List<Novel>>(userService.getFavNovel(username), HttpStatus.OK);
+    }
 
 
 

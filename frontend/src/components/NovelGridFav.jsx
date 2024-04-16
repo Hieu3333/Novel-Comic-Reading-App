@@ -1,13 +1,14 @@
 import React from 'react'
 import NovelCard from './NovelCard.jsx'
-const NovelGrid = ({novels, user}) => {
+import NovelCardFav from './NovelCardFav.jsx'
+const NovelGridFav = ({novels, user}) => {
   return (
     <div className="grid grid-cols-4 gap-4 ">
       {novels.map((novel, index) => (
-        <NovelCard key={index} novel={novel} user={user} />
+        <NovelCardFav key={index} novel={novel} user={user} />
       ))}
     </div>
   )
 }
 
-export default NovelGrid
+export default NovelGridFav

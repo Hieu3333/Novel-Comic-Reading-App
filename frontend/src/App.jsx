@@ -4,6 +4,8 @@ import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 import Home from './pages/Home.jsx';
 import NovelDetail from './pages/NovelDetail.jsx';
+import UserFavorite from './pages/UserFavorite.jsx';
+import ReadNovel from './pages/ReadNovel.jsx';
 const App = () => {
   return (
     <Routes>
@@ -11,6 +13,8 @@ const App = () => {
       <Route path='/signup' element={<Signup/>}></Route>
       <Route path='/home' element={<Home/>}></Route>
       <Route path='/novels/:id' element={<NovelDetail/>}></Route>
+      <Route path='/:username/favorite' element={<UserFavorite/>}></Route>
+      <Route path='/novels/read/:id' element ={<ReadNovel/>}></Route>
 
     </Routes>
   )
