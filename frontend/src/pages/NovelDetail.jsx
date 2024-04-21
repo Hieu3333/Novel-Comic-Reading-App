@@ -10,6 +10,10 @@ const NovelDetail = () => {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
   
+  const check = (username)=>{
+    if (username==="admin") return true;
+    else return false;
+  }
 
   useEffect(() => {
     axios
@@ -119,9 +123,11 @@ const NovelDetail = () => {
               <button onClick ={()=>{navigate(`/novels/read/${novel.id}`)}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl mt-4 max-w-20 text-align: center;">
                 Read
               </button>
-              <button onClick ={handleAddToFav} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl mt-4 max-w-50 text-align: center;">
+              { !check(username)  && (
+                <button onClick ={handleAddToFav} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-2xl mt-4 max-w-50 text-align: center;">
                 Add to favorite
               </button>
+              )}
             </div>
           </div>
         </div>

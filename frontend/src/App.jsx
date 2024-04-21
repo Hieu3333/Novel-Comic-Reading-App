@@ -6,6 +6,8 @@ import Home from './pages/Home.jsx';
 import NovelDetail from './pages/NovelDetail.jsx';
 import UserFavorite from './pages/UserFavorite.jsx';
 import ReadNovel from './pages/ReadNovel.jsx';
+import Admin from './pages/Admin.jsx';
+import UploadNovel from './pages/UploadNovel.jsx';
 const App = () => {
   return (
     <Routes>
@@ -15,6 +17,8 @@ const App = () => {
       <Route path='/novels/:id' element={<NovelDetail/>}></Route>
       <Route path='/:username/favorite' element={<UserFavorite/>}></Route>
       <Route path='/novels/read/:id' element ={<ReadNovel/>}></Route>
+      <Route path='/admin' element={<Admin/>}></Route>
+      <Route path='/admin/upload' element={<UploadNovel/>}></Route>
 
     </Routes>
   )

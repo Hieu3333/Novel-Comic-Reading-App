@@ -23,6 +23,8 @@ public class User {
     private String username;
     private String password;
 
+    private Boolean VIP;
+
     @DocumentReference
     private List<Novel> favoriteNovels;
 

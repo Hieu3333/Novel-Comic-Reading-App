@@ -63,11 +63,11 @@ const NovelCardFav = ({ novel, user }) => {
   
   return (
       <div
-      onClick={handleClick}
+      
       className="max-w-sm rounded overflow-hidden shadow-lg flex flex-col justify-center items-center bg-green-400 hover:bg-blue-500"
     >
       <img className="w-14 h-20" src={novel.imgURL} alt={novel.title} />
-      <div className="px-6 py-4 text-center">
+      <div  onClick={handleClick} className="px-6 py-4 text-center">
         <div className="text-xs mb-2">{novel.title}</div>
         <div className="text-xs mb-2">Rating:{generateStars(novel.rating)}</div>
   
