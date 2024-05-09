@@ -45,7 +45,7 @@ public class Novel {
 
     private Boolean VIP;
 
-    public Novel(String title, String author, String genre, int releaseYear, String imgUrl, String summary, String content) {
+    public Novel(String title, String author, String genre, int releaseYear, String imgUrl, String summary, String content, Boolean VIP) {
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -54,7 +54,7 @@ public class Novel {
         this.imgURL = imgUrl;
         this.summary = summary;
         this.content = content;
-        this.VIP = false;
+        this.VIP = VIP;
         this.numberOfRatings=0;
         this.numberOfComments=0;
     }

@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,31 @@ public class UserService {
         List<Novel> fav = user.getFavoriteNovels();
         return fav;
 
+    }
+
+    public List<User> getAllUsers(){
+        return (List<User>) userRepository.findAll();
+    }
+
+    public  Optional<User> upgradeUser(String username){
+        Query query = new Query(Criteria.where("username").is(username));
+
+        // Create an update operation to set the new rating
+        Update update = new Update();
+        update.set("VIP", true);
+
+
+        // Execute the update operation
+        mongoTemplate.updateFirst(query, update, User.class);
+
+        return userRepository.findUserByUsername(username);
+    }
+
+    public Boolean checkVIP (String username){
+        Optional<User> user = userRepository.findUserByUsername(username);
+        User user1 = user.get();
+
+        return user1.getVIP();
     }
 
 

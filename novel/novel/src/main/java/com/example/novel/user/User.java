@@ -23,12 +23,15 @@ public class User {
     private String username;
     private String password;
 
-    private Boolean VIP;
+    private Boolean VIP = false;
 
     @DocumentReference
     private List<Novel> favoriteNovels;
 
 
+    public Boolean getVIP() {
+        return VIP;
+    }
 
     public User(String username, String password) {
         this.username = username;

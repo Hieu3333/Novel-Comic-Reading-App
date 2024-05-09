@@ -14,6 +14,9 @@ public class AdminService {
 
     @Autowired
     private NovelRepository novelRepository;
+
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private MongoTemplate mongoTemplate;
 
@@ -32,6 +35,10 @@ public class AdminService {
 
     public void deleteNovel(ObjectId novelId) {
         novelRepository.deleteById(novelId);
+    }
+
+    public void deleteUserByUsername(String username){
+        userRepository.deleteUserByUsername(username);
     }
 
 }

@@ -1,8 +1,10 @@
+import axios from "axios";
 import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 const NovelCard = ({ novel, user }) => {
   const navigate = useNavigate();
+  const userH = useState({});
   const generateStars = (rating) => {
     const fullStars = Math.floor(rating); // Number of full stars
     const halfStar = rating - fullStars >= 0.5 ? 1 : 0; // Check for half star
@@ -40,23 +42,41 @@ const NovelCard = ({ novel, user }) => {
 
     return stars;
   };
+ 
+
 
   const handleClick = ()=>{
-      navigate(`/novels/${novel.id}`,{state:{user_name: user}})
+    axios.get(`http://localhost:8080/users/${user}/checkVIP`)
+    .then((res)=>{
+      if (!(res.status == 202) && novel.vip){
+        alert('Please upgrade your account to VIP to read this novel');
+      }
+      else{
+        navigate(`/novels/${novel.id}`,{state:{user_name: user}});
+      }
+    })
+    .catch(err =>{
+      console.log(err);
+    })
   }
   
   return (
-      <div
-      onClick={handleClick}
-      className="max-w-sm rounded overflow-hidden shadow-lg flex flex-col justify-center items-center bg-green-400 hover:bg-blue-500"
-    >
-      <img className="w-14 h-20" src={novel.imgURL} alt={novel.title} />
-      <div className="px-6 py-4 text-center">
-        <div className="text-xs mb-2 font-bold">{novel.title}</div>
-        <div className="text-xs mb-2">Rating:{generateStars(novel.rating)}({Math.round(novel.rating*100)/100}/{novel.numberOfRatings} rated)</div>
-  
-      </div>
+    <div
+    onClick={handleClick}
+    className="max-w-sm rounded overflow-hidden shadow-lg flex flex-col justify-center items-center bg-green-400 hover:bg-blue-500"
+  >
+    <img className="w-18 h-24" src={novel.imgURL} alt={novel.title} />
+    <div className="px-6 py-4 text-center align:center flex flex-col justify-center items-center">
+      <div className="text-xs mb-2 font-bold">{novel.title}</div>
+      {novel.vip && (
+        <div className="flex justify-center items-center">
+          <img width="15" height="8" src="https://img.icons8.com/ios/50/vip.png" alt="vip"/>
+        </div>
+      )}
+      <div className="text-xs mb-2">Rating:{generateStars(novel.rating)}({Math.round(novel.rating*100)/100}/{novel.numberOfRatings} rated)</div>
     </div>
+  </div>
+  
     
   );
 };

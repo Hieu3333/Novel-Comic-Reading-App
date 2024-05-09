@@ -13,9 +13,39 @@ const Admin = () => {
   const user_name = state.user_name;
   const [openMenu, setOpenMenu] = useState(false);
   const [openGenre, setOpenGenre] = useState(false);
+  const [showUserList, setShowUserList] = useState(false);
+  const [users, setUsers] = useState([]);
 
-  const genre_list = ["Science Fiction", "Romance", "Fantasy", "Thriller", "Action", "Adventure", "Horror", "Non-fiction"];
+  const genre_list = [
+    "Science Fiction",
+    "Romance",
+    "Fantasy",
+    "Thriller",
+    "Action",
+    "Adventure",
+    "Horror",
+    "Non-fiction",
+  ];
 
+  const handleShowUserList = (e) => {
+    e.preventDefault();
+    setShowUserList(true);
+  };
+
+  const handleDeleteUser = (username) =>{
+    const confirmed = window.confirm('Are you sure you want to delete this user?');
+    if (confirmed){
+      axios.put(`http://localhost:8080/admin/deleteUser/${username}`)
+    .then(res=>{
+      alert('User deleted successfully');
+      window.location.reload({ state: { user_name: user_name } });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    }
+    
+  }
   const handleClickMenu = () => {
     setOpenMenu(!openMenu);
   };
@@ -35,8 +65,17 @@ const Admin = () => {
       .catch((err) => {
         console.log(err);
       });
+    axios
+      .get("http://localhost:8080/users") // Assuming this is your endpoint to fetch users
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
-  
+
+  console.log(users);
 
   const [search, setSearch] = useState("");
   const handleSearchChange = (e) => {
@@ -59,37 +98,35 @@ const Admin = () => {
     }
   };
 
-  
-  const handleChooseGenre = (genre_chosen)=>{
+  const handleChooseGenre = (genre_chosen) => {
     const genre = genre_chosen;
     const data = {
-      genre
+      genre,
     };
-    axios.put(`http://localhost:8080/novels/genre`,data)
-    .then((res)=>{
-      setSearchData(res.data);
-      console.log(res.data);
-      setIsSearch(true);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  
-  
-  }
-
-  const handleHighestRating =()=>{
     axios
-        .get(`http://localhost:8080/novels/rating`)
-        .then((res) => {
-          setSearchData(res.data);
-          setIsSearch(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      e.preventDefault();
-  }
+      .put(`http://localhost:8080/novels/genre`, data)
+      .then((res) => {
+        setSearchData(res.data);
+        console.log(res.data);
+        setIsSearch(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleHighestRating = () => {
+    axios
+      .get(`http://localhost:8080/novels/rating`)
+      .then((res) => {
+        setSearchData(res.data);
+        setIsSearch(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    e.preventDefault();
+  };
 
   return (
     <Fragment>
@@ -107,6 +144,7 @@ const Admin = () => {
           <button
             onClick={() => {
               setIsSearch(false);
+              setShowUserList(false);
             }}
             className="text-xs text-black hover:bg-blue-500 rounded-md "
           >
@@ -114,9 +152,7 @@ const Admin = () => {
           </button>
           <button
             className="text-xs text-black hover:bg-blue-500 rounded-md"
-            onClick={() => {
-              ;
-            }}
+            onClick={handleShowUserList}
           >
             Users
           </button>
@@ -140,31 +176,31 @@ const Admin = () => {
                 style={{ zIndex: 9999 }}
               >
                 <div className="py-1 grid grid-cols-2">
-                  {
-                    genre_list.map((genre,index)=>(
-                      <div
-                    
-                    className="text-black block px-4 py-2 text-sm hover:bg-blue-500"
-                    role="menuitem"
-                    tabIndex="-1"
-                    key={index}
-                    onClick={()=>{
-                      console.log(genre);
-                
-                      handleChooseGenre(genre);
-                    }}
-                  >
-                    {genre}
-                  </div>
-                    ))
-                  }
-                  
-                
+                  {genre_list.map((genre, index) => (
+                    <div
+                      className="text-black block px-4 py-2 text-sm hover:bg-blue-500"
+                      role="menuitem"
+                      tabIndex="-1"
+                      key={index}
+                      onClick={() => {
+                        console.log(genre);
+
+                        handleChooseGenre(genre);
+                      }}
+                    >
+                      {genre}
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
           </div>
-          <button onClick={handleHighestRating} className="text-xs text-black hover:bg-blue-500 rounded-md">Highest rating</button>
+          <button
+            onClick={handleHighestRating}
+            className="text-xs text-black hover:bg-blue-500 rounded-md"
+          >
+            Highest rating
+          </button>
 
           <div className="flex lg:ml-auto max-lg:w-25">
             <div className="flex xl:w-80 max-xl:w-full bg-white px-6 py-3 rounded outline outline-transparent focus-within:outline-[#007bff]">
@@ -228,6 +264,7 @@ const Admin = () => {
                     role="menuitem"
                     tabIndex="-1"
                     id="menu-item-0"
+                    onClick={handleShowUserList}
                   >
                     Manage users
                   </a>
@@ -237,11 +274,12 @@ const Admin = () => {
                     role="menuitem"
                     tabIndex="-1"
                     id="menu-item-0"
-                    onClick={()=>{navigate('/admin/upload');}}
+                    onClick={() => {
+                      navigate("/admin/upload");
+                    }}
                   >
                     Upload novel
                   </a>
-
 
                   <button
                     type="submit"
@@ -261,7 +299,27 @@ const Admin = () => {
       </header>
 
       <div className="bg-green-300 min-h-screen">
-        {isSearch ? (
+        {showUserList ? (
+          <div className="container mx-auto p-4">
+            <h2 className="text-2xl font-bold mb-4">User List</h2>
+            <div className="flex flex-wrap">
+              {users.map((user) => (
+                <div
+                  key={user.username}
+                  className="flex items-center bg-white p-3 rounded shadow mr-4 mb-4 w-full"
+                >
+                  <span className="mr-2">{user.username}     {user.vip && (<span className="text-blue-500">VIP</span>)} </span>
+                  <button
+                    onClick={()=>handleDeleteUser(user.username)}
+                    className="text-red-500 hover:text-red-700 items-right"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : isSearch ? (
           <NovelGridAdmin novels={searchData} user={user_name} />
         ) : (
           <NovelGridAdmin novels={novels} user={user_name} />

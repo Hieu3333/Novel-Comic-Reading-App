@@ -23,6 +23,7 @@ const Home = () => {
     navigate("/");
   };
 
+
   const [novels, setNovels] = useState([]);
   useEffect(() => {
     axios
@@ -222,13 +223,14 @@ const Home = () => {
               >
                 <div className="py-1" role="none">
                   <a
-                    href="#"
+                    href=""
                     className="text-black block px-4 py-2 text-sm hover:bg-blue-500"
                     role="menuitem"
                     tabIndex="-1"
                     id="menu-item-0"
+                    onClick={()=>{navigate(`/${user_name}/upgrade`);}}
                   >
-                    My account
+                    Upgrade to VIP
                   </a>
 
                   <button

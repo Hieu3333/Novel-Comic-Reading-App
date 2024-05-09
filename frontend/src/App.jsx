@@ -8,6 +8,8 @@ import UserFavorite from './pages/UserFavorite.jsx';
 import ReadNovel from './pages/ReadNovel.jsx';
 import Admin from './pages/Admin.jsx';
 import UploadNovel from './pages/UploadNovel.jsx';
+import VNPay from './pages/VNPay.jsx';
+
 const App = () => {
   return (
     <Routes>
@@ -19,6 +21,7 @@ const App = () => {
       <Route path='/novels/read/:id' element ={<ReadNovel/>}></Route>
       <Route path='/admin' element={<Admin/>}></Route>
       <Route path='/admin/upload' element={<UploadNovel/>}></Route>
+      <Route path='/:username/upgrade' element={<VNPay/>}></Route>
 
     </Routes>
   )

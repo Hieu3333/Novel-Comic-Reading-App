@@ -31,8 +31,15 @@ public class NovelService {
     private MongoTemplate mongoTemplate;
 
 
-    public Novel createNovel(String title, String author, String genre, int releaseYear, String imgUrl, String summary, String content){
-        return novelRepository.insert(new Novel(title,author,genre,releaseYear, imgUrl, summary, content));
+    public Novel createNovel(String title, String author, String genre, int releaseYear, String imgUrl, String summary, String content, String VIP){
+        Boolean isVIP;
+        if (VIP.equals("true")){
+            isVIP = true;
+        }
+        else{
+            isVIP = false;
+        }
+        return novelRepository.insert(new Novel(title,author,genre,releaseYear, imgUrl, summary, content, isVIP));
     }
 
     public Optional<Novel> singleNovel(ObjectId id){

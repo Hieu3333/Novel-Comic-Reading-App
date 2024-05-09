@@ -34,11 +34,17 @@ public class AdminController {
         }
     }
 
-    @PutMapping("/delete/{novelId}")
+    @PutMapping("/deleteNovel/{novelId}")
     public ResponseEntity<String> deleteNovel(@PathVariable ObjectId novelId) {
         adminService.deleteNovel(novelId);
 
         return new ResponseEntity<>("Novel deleted successfully", HttpStatus.OK);
 
+    }
+
+    @PutMapping("/deleteUser/{username}")
+    public ResponseEntity<String> deleteUser(@PathVariable String username){
+        adminService.deleteUserByUsername(username);
+        return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
     }
 }

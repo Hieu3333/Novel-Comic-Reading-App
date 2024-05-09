@@ -52,7 +52,7 @@ const NovelCardAdmin = ({ novel, user }) => {
    
 
   if (confirmed) {
-    axios.put(`http://localhost:8080/admin/delete/${novel.id}`)
+    axios.put(`http://localhost:8080/admin/deleteNovel/${novel.id}`)
       .then((res) => {
         alert("Novel deleted");
         window.location.reload({ state: { user_name: user } });

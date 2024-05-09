@@ -48,7 +48,26 @@ public class UserController {
         return new ResponseEntity<List<Novel>>(userService.getFavNovel(username), HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers(){
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    }
 
+    @PutMapping("/{username}/upgrade")
+    public ResponseEntity<Optional<User>> upgradeUser(@PathVariable String username){
+        return new ResponseEntity<Optional<User>>(userService.upgradeUser(username), HttpStatus.OK);
+    }
+
+    @GetMapping("/{username}/checkVIP")
+    public ResponseEntity<Boolean> checkVIP(@PathVariable String username){
+        Boolean isVIP = userService.checkVIP(username);
+        if (isVIP){
+            return new ResponseEntity<>(TRUE, HttpStatus.ACCEPTED);
+        }
+        else{
+            return new ResponseEntity<>(FALSE, HttpStatus.NO_CONTENT);
+        }
+    }
 
 
 }

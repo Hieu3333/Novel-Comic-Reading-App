@@ -22,7 +22,7 @@ public class NovelController {
     @PostMapping
     public ResponseEntity<Novel> createNovel(@RequestBody Map<String, String> payload){
         return new ResponseEntity<Novel>(novelService.createNovel(payload.get("title"),
-                payload.get("author"),payload.get("genre"), Integer.parseInt(payload.get("releaseYear")), payload.get("imgURL"), payload.get("summary"), payload.get("content")), HttpStatus.CREATED);
+                payload.get("author"),payload.get("genre"), Integer.parseInt(payload.get("releaseYear")), payload.get("imgURL"), payload.get("summary"), payload.get("content"), payload.get("VIP")), HttpStatus.CREATED);
     }
 
     @GetMapping("/{novelId}")
