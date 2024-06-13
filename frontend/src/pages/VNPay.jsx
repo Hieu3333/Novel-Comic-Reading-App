@@ -29,57 +29,60 @@ const VNPay = () => {
   
 
   return (
-    <div className="w-full h-full mx-auto bg-green-300">
-      <h2 className="text-2xl font-bold mb-4">Payment Information</h2>
-      <form >
-        <div className="mb-4">
-          <label htmlFor="cardNumber" className="block mb-2">
-            Card Number
-          </label>
-          <input
-            type="text"
-            id="cardNumber"
-            value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
-            className="w-500 border-gray-300 rounded-md p-2"
-            placeholder="Enter card number"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="expiryDate" className="block mb-2">
-            Expiry Date
-          </label>
-          <input
-            type="text"
-            id="expiryDate"
-            value={expiryDate}
-            onChange={(e) => setExpiryDate(e.target.value)}
-            className="w-500 border-gray-300 rounded-md p-2"
-            placeholder="MM/YY"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="cvv" className="block mb-2">
-            CVV
-          </label>
-          <input
-            type="text"
-            id="cvv"
-            value={cvv}
-            onChange={(e) => setCVV(e.target.value)}
-            className="w-500 border-gray-300 rounded-md p-2"
-            placeholder="CVV"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md"
-          onClick={handlePayment}
-        >
-          Pay Now
-        </button>
-      </form>
-    </div>
+    <div className="min-h-screen flex items-center justify-center bg-green-200">
+  <div className="w-full max-w-md mx-auto p-6 bg-green-300 rounded-lg shadow-md">
+    <h2 className="text-2xl font-bold mb-4 text-center">Payment Information</h2>
+    <form>
+      <div className="mb-4">
+        <label htmlFor="cardNumber" className="block mb-2">
+          Card Number
+        </label>
+        <input
+          type="text"
+          id="cardNumber"
+          value={cardNumber}
+          onChange={(e) => setCardNumber(e.target.value)}
+          className="w-full border-gray-300 rounded-md p-2"
+          placeholder="Enter card number"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="expiryDate" className="block mb-2">
+          Expiry Date
+        </label>
+        <input
+          type="text"
+          id="expiryDate"
+          value={expiryDate}
+          onChange={(e) => setExpiryDate(e.target.value)}
+          className="w-full border-gray-300 rounded-md p-2"
+          placeholder="MM/YY"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="cvv" className="block mb-2">
+          CVV
+        </label>
+        <input
+          type="text"
+          id="cvv"
+          value={cvv}
+          onChange={(e) => setCVV(e.target.value)}
+          className="w-full border-gray-300 rounded-md p-2"
+          placeholder="CVV"
+        />
+      </div>
+      <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md w-full"
+        onClick={handlePayment}
+      >
+        Upgrade
+      </button>
+    </form>
+  </div>
+</div>
+
   );
 };
 
